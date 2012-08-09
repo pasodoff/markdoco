@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Unix Wiki</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">    
+	<link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/default.min.css">
+	<link rel="stylesheet" href="stylesheets/editor.css" />
+	<link rel="stylesheet" href="stylesheets/custom.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	
+</head>
+<body>
+
+
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+
+	<div class="container">
+		<div class="sixteen columns">
+			<h1 class="remove-bottom" style="margin-top: 40px">Unix Wiki</h1>
+			<h5>Version 0.1</h5>
+			<hr />
+		</div>
+		<div class="three columns sidebar">
+			<nav id="nav">
+				<h3 id="logo">Skeleton</h3>
+				<ul>
+					<li><a href="#/README.md" >Read Me</a></li>
+					<li><a href="#/migration.md" >WPS Clone</a></li>
+					<li><a href="#/DB2%20Installation.md" >DB2 Installation</a></li>
+					<li><a href="#/WASMigration.md" >WebSphere Clone</a></li>
+					<li><a href="#/RegisterRSAAPI.md" >Register RSA API</a></li>
+					<li><a href="#forms">Forms</a></li>
+					<li><a href="#mediaQueries">Media Queries</a></li>
+					<li><a href="#support">Support</a></li>
+					<li><a href="#examples">Examples</a></li>
+					<li><a href="#download">Download</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="thirteen columns content">
+			<ul class="tabs">
+				<li><a class="active" href="#md_content">Content</a></li>
+				<li><a href="#md_edit" class="">Edit</a></li>
+				<li><a href="#md_history" class="">History</a></li>
+			</ul>
+			<ul class="tabs-content">
+				<li class="active" id="md_content" style="display: block; ">
+					<div id="wiki_content" class="wiki" style="width:90%">
+						<p><img src="images/loading.gif" alt="content loading...">
+
+						</p>					
+					</div><!-- wiki content -->
+				</li>
+				<li id="md_edit" style="display: none; " class="">
+					<div id="wiki_edit" class="wiki" style="width:100%">
+						  
+						<div id="save-msg">Save successful</div>
+						<div id="wmd-button-bar"></div>
+						<textarea class="wmd-input" id="wmd-input">
+								Create a new page
+						</textarea>
+						<div style="float:right">
+							<a href="#md_content" onclick="setArticle(CURRENTLOCATION);"class="button">Save</a>
+							<a class="button">Preview</a>
+						</div>
+					
+					</div><!-- wiki content -->
+				</li>
+				<li id="md_history" style="display: none; " class="">
+					<div class="wiki">
+											
+					</div><!-- wiki content -->
+				</li>
+			</ul>
+		</div>
+	
+	</div><!-- container -->
+<!-- <textarea id="edit_content" class="wmd-input" id="wmd-input" style="width:90%;height:500px"></textarea>-->
+
+
+	<!-- JS
+	================================================== -->
+	<script src="javascripts/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="javascripts/jquery-ui-1.8.21.custom.min.js"></script>
+	<script type="text/javascript" src="javascripts/highlight.min.js"></script>
+	<script type="text/javascript" src="javascripts/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="javascripts/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="javascripts/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="javascripts/tabs.js"></script>
+	<script type="text/javascript" src="javascripts/markdoco.js"></script>
+    <script>
+	
+	hljs.initHighlightingOnLoad();
+	
+	
+	var HOMELOCATION 		= "/home.md";
+	var DOCSLOCATION 		= "/markdoco/pages";
+	var CURRENTLOCATION 	= "/index.md";
+	var CURRENTDIRECTORY 	= "/";
+	var JUSTARRIVED 		= true;
+	
+	
+	
+		jQuery(document).ready(function($) {
+			
+			// Start converter and editor
+			var converter1 = Markdown.getSanitizingConverter();
+			var editor1 = new Markdown.Editor(converter1);
+			editor1.run();
+			
+			// Check URL for # document location on page load
+			var location =  window.location.hash;
+			
+			location = location.substring(location.indexOf('#'), location.length);
+			
+			$("nav#nav ul il").each(function(i, e){
+				alert(e.html);
+			});
+			
+			if( location != "md_content" && 
+					location != "md_edit" &&
+					location != "md_history") {
+				
+				location = location.substring(1, location.length);
+				if ( location.lastIndexOf("/") == (location.length -1) ||
+						location.length == 0
+						) {
+					// For directory request get the index file
+					location = location + "/index.md";
+				}
+					
+			getArticle(location);
+			}	
+			
+			//add event on hash change for navigation
+			window.onhashchange = locationHashChanged;
+			
+		});
+	
+		// Fire this on hash change!
+		function locationHashChanged() {
+			changedHash = window.location.hash;
+			changedHash = changedHash.substring(1,changedHash.length);
+			
+			if( changedHash != "md_content" && 
+				changedHash != "md_edit" &&
+				changedHash != "md_history"
+				) {
+				
+				// account for directories
+				if ( changedHash.lastIndexOf("/") == (changedHash.length -1) ) {			
+					// For directory request get the index file
+					changedHash = changedHash + "index.md";
+				}
+				//change page article
+				getArticle(changedHash);
+			}
+		}
+	
+
+    </script>
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
