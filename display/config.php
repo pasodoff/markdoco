@@ -1,6 +1,6 @@
 <?php
-$SERVER_ROOT = "/Users/aaronbrindley/Sites/markdoco";
-$DOCUMENT_ROOT = "/Users/aaronbrindley/Sites/markdoco/pages";
+$SERVER_ROOT = "~/Sites/markdoco";
+$DOCUMENT_ROOT = "~/Sites/markdoco/pages";
 
 $LEGAL_EXTENSIONS = array('md', 'markdown');
 ?>
